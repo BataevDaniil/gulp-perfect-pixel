@@ -1,0 +1,15 @@
+{
+  "name": "gulp-perfect-pixel",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo test"
+  },
+  "repository": "https://github.com/BataevDaniil/gulp-perfect-pixel",
+  "author": "Bataev Daniil",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "gulp-util": "^3.0.8"
+  }
+}
