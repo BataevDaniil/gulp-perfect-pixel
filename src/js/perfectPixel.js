@@ -1,5 +1,11 @@
-const getStyleUser = require('./helpers').getStyleUser;
-const generateId = require('./helpers').generateId;
+function getStyleUser(style) {
+
+	return `
+		${style.positionRelative !== 'body' ? `left: ${style.left || 0}` : ''};
+		top: ${style.top || 0};
+		opacity: ${style.opacity || 1};
+	`;
+}
 
 function perfectPixel(options) {
 	const DEFAULT_ROOT_PATH_IMAGE = 'perfectPixel';
@@ -111,18 +117,18 @@ function perfectPixel(options) {
 		  		img.style.left = shift(leftAll.tablet);
 		  	else if (adaptivSizePages.tablet < displayWidth)
 		  		img.style.left = shift(leftAll.desktop);
-		  	  
-		  	
+
+
 		});
 	}
 	</script>`;
 	return `
 		<div class="perfect-pixel-wrapper-${id}">
 			<img class="perfect-pixel-img-${id}">
-			<style>${stylesForAdaptiv}</style>	
+			<style>${stylesForAdaptiv}</style>
 			${keepRelativBody}
 		</div>
 	`;
 }
 
-module.exports = perfectPixel;
+export default perfectPixel;

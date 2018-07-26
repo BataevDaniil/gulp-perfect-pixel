@@ -1,0 +1,24 @@
+{
+  "src": {
+    "pug": "mock/pug/development-perfect-pixel/**/*.pug",
+    "pugGulp": "mock/pug/development-gulp-perfect-pixel/**/*.pug",
+    "pugProduction": "src/pug/main.pug",
+    "js": "src/js/perfectPixel.js",
+    "node": "src/node/**/*.js",
+    "sass": "mock/sass/main.{sass,scss,css}",
+    "sassProduction": "src/sass/main.{sass,scss,css}"
+  },
+  "build": {
+    "path": "build",
+    "node": "build",
+    "html": "build",
+    "js": "build",
+    "css": "build"
+  },
+  "watch": {
+    "pug": "{src,mock}/pug/**/*.{pug,html}",
+    "sass": "{src,mock}/sass/**/*.{sass,scss,css}",
+    "node": "src/node/**/*.js"
+  },
+  "clean": "build"
+}

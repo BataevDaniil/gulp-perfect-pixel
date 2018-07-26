@@ -1,3 +1,13 @@
+build
+config
+mock
 node_modules
-.travis.yml
+src
+tasks
 test
+.babelrc
+.editorconfig
+.travis.yml
+gulpfile.js
+yarn.lock
+yarn-error.log

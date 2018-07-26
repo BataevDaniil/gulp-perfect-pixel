@@ -2,14 +2,55 @@
   "name": "gulp-perfect-pixel",
   "version": "0.1.0",
   "main": "index.js",
+  "keywords": [
+    "gulp",
+    "perfect-pixel",
+    "gulp-perfect-pixel"
+  ],
   "scripts": {
-    "test": "echo test"
+    "production": "cross-env NODE_ENV=production gulp production",
+    "development-perfect-pixel": "cross-env NODE_ENV=development gulp default",
+    "development-gulp-perfect-pixel": "cross-env NODE_ENV=development-gulp-perfect-pixel gulp default",
+    "share": "gulp ngrok",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "repository": "https://github.com/BataevDaniil/gulp-perfect-pixel",
   "author": "Bataev Daniil",
   "license": "MIT",
   "private": false,
-  "dependencies": {
-    "gulp-util": "^3.0.8"
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.4.0",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "browser-sync": "^2.24.6",
+    "cross-env": "^5.2.0",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-babel": "^7.0.1",
+    "gulp-cli": "^2.0.1",
+    "gulp-if": "^2.0.2",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-pug": "^4.0.1",
+    "gulp-remove-html-comments": "^1.0.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-strip-css-comments": "^2.0.0",
+    "gulp-util": "^3.0.8",
+    "jest": "^23.4.1",
+    "ngrok": "^3.0.1",
+    "require-dir": "^1.0.0",
+    "rimraf": "^2.6.2",
+    "vinyl-named": "^1.1.0",
+    "webpack": "^4.16.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-stream": "^5.0.0"
   }
 }

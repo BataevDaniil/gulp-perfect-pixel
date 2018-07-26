@@ -3,8 +3,8 @@ const path = require('path');
 const PluginError = require('gulp-util').PluginError;
 const log = require('gulp-util').log;
 const insert = require('./helpers').insert;
-const perfectPixel = require('./perfectPixel');
-
+import wrapper from './wrapper';
+// const wrapper = require('./wrapper');
 
 module.exports = function wrapperGulpperfectPixel(options) {
 	return through(function gulpPerfectPixel(file, enc, callBack) {
@@ -20,7 +20,7 @@ module.exports = function wrapperGulpperfectPixel(options) {
 					pageName,
 				});
 
-				const code = perfectPixel(opt);
+				const code = wrapper(opt);
 				let contents = String(file.contents);
 				const index = contents.indexOf('</body>');
 				contents = insert(contents, index, code);
