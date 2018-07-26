@@ -1,10 +1,19 @@
 language: node_js
+
 node_js:
-  - "node"
+  - 'node'
+
+cache:
+  directories:
+    - 'node_modules'
+script:
+  - yarn test
+  - yarn production
 
 deploy:
   provider: npm
   email: ragoga48@gmail.com
   api_key: $NPM_TOKEN
+  local-dir: build
   on:
     tags: true

@@ -1,8 +1,8 @@
 {
   "src": {
-    "pug": "mock/pug/development-perfect-pixel/**/*.pug",
+    "pug": "src/pug/main.pug",
     "pugGulp": "mock/pug/development-gulp-perfect-pixel/**/*.pug",
-    "pugProduction": "src/pug/main.pug",
+    "pugPerfectPixel": "mock/pug/development-perfect-pixel/**/*.pug",
     "js": "src/js/perfectPixel.js",
     "node": "src/node/**/*.js",
     "sass": "mock/sass/main.{sass,scss,css}",

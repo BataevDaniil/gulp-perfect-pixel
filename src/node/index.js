@@ -1,12 +1,12 @@
-const through = require('through2').obj;
-const path = require('path');
-const PluginError = require('gulp-util').PluginError;
-const log = require('gulp-util').log;
-const insert = require('./helpers').insert;
+import { obj as through } from 'through2';
+import path from 'path';
+import { PluginError} from 'gulp-util';
+import { log } from 'gulp-util';
+import { insert } from './helpers';
 import wrapper from './wrapper';
-// const wrapper = require('./wrapper');
+import fs from 'fs';
 
-module.exports = function wrapperGulpperfectPixel(options) {
+function wrapperGulpperfectPixel(size, options) {
 	return through(function gulpPerfectPixel(file, enc, callBack) {
 
 		if (file.isStream()) {
@@ -19,8 +19,11 @@ module.exports = function wrapperGulpperfectPixel(options) {
 				const opt = Object.assign(options || {}, {
 					pageName,
 				});
+				// TODO: typing parse name img
+				fs.readdirSync('./mock/img');
+				///////////////////////////
 
-				const code = wrapper(opt);
+				const code = wrapper(size && size[pageName], opt);
 				let contents = String(file.contents);
 				const index = contents.indexOf('</body>');
 				contents = insert(contents, index, code);
@@ -32,4 +35,6 @@ module.exports = function wrapperGulpperfectPixel(options) {
 		}
 		callBack(null, file);
 	});
-};
+}
+
+export default wrapperGulpperfectPixel;

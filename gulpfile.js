@@ -13,8 +13,8 @@ gulp.task('build',
 	gulp.parallel(
 		'js-build',
 		'sass-build',
-		(mode === 'development-gulp-perfect-pixel' || mode === 'production')
-		? gulp.series('node-build', 'pug-build')
+		(mode === 'development-gulp-perfect-pixel')
+		? gulp.series('node-build', 'pug-build', 'pug-gulp-build')
 		: 'pug-build'
 	)));
 
@@ -22,10 +22,10 @@ gulp.task('watch', () => {
 	gulp.watch(path.watch.pug, gulp.series('pug-build'));
 	gulp.watch(path.watch.sass, gulp.series('sass-build'));
 	if (mode === 'development-gulp-perfect-pixel')
-		gulp.watch(path.watch.node, gulp.series('node-build', 'pug-build'));
+		gulp.watch(path.watch.node, gulp.series('node-build', 'pug-gulp-build'));
 });
 
-gulp.task('production', gulp.series('build'));
+gulp.task('production', gulp.series('build', 'node-build'));
 
 gulp.task('default',
 	gulp.series('build',

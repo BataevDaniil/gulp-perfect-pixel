@@ -13,7 +13,7 @@ const path = require('../../config/application');
 const webpackConfig = require('../../config/webpack.config');
 const Log = require('../log');
 
-gulp.task('js-build', (callback) => {
+gulp.task('js-build', callback => {
 	return gulp.src(path.src.js)
 		.pipe(plumber({
 			errorHandler: notify.onError(function(err){
@@ -27,7 +27,7 @@ gulp.task('js-build', (callback) => {
 		.pipe(webpackStream(webpackConfig, webpack, done))
 		.pipe(gulp.dest(path.build.js))
 		.on('data', () => {
-				gulp.src(path.src.js, {read: false})
+			gulp.src(path.src.js, {read: false})
 					.pipe(reload({stream:true}))
 				callback();
 		});

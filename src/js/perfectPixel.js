@@ -1,134 +1,135 @@
-function getStyleUser(style) {
-
-	return `
-		${style.positionRelative !== 'body' ? `left: ${style.left || 0}` : ''};
-		top: ${style.top || 0};
-		opacity: ${style.opacity || 1};
-	`;
-}
-
-function perfectPixel(options) {
-	const DEFAULT_ROOT_PATH_IMAGE = 'perfectPixel';
-
-	const DEFAULT_ADAPTIV_SIZE_PAGES = {
-		mobile: '740px',
-		tablet: '1099px',
+class PerfectPixel {
+	static TYPE_ADAPTIVE = {
+		LEFT : 'left',
+		RIGHT: 'right',
+		LEFT_RIGHT: 'left-right',
 	};
 
-	const DEFAULT_EXTENSION_IMAGE = 'jpg';
-
-	const rootPathImg = options.rootPathImg
-	                    ||
-	                    DEFAULT_ROOT_PATH_IMAGE;
-
-	const DEFAULT_USER_STYLE = {
-		positionRelative: 'body', // or 'document'
-		top: '0px',
-		left: '0px',
-		opacity: 0.8,
+	static DEFAULT = {
+		CLASS_IMG: 'perfect-pixel__img',
+		ROOT_URL_IMAGE: 'perfectPixel',
+		EXTENSION_IMAGE: 'jpg',
+		PAGE_NAME: 'index',
+		SIZE: [
+			{
+				type: PerfectPixel.TYPE_ADAPTIVE.RIGHT,
+				name: '720|',
+				one: 720,
+				style: {
+					top: 0,
+					left: 0,
+					opacity: 0.8,
+				},
+				positionRelative: 'body', // or 'document'
+			},
+			{
+				type: PerfectPixel.TYPE_ADAPTIVE.LEFT_RIGHT,
+				name: '|720-1200|',
+				one: 720,
+				two: 1200,
+				style: {
+					top: 0,
+					left: 0,
+					opacity: 0.8,
+				},
+				positionRelative: 'body', // or 'document'
+			},
+			{
+				type: PerfectPixel.TYPE_ADAPTIVE.LEFT,
+				one: 1200,
+				name: '|1200',
+				style: {
+					top: 0,
+					left: 0,
+					opacity: 0.8,
+				},
+				positionRelative: 'body', // or 'document'
+			},
+		]
 	};
 
-	const adaptivSizePages = options.adaptivSizePages
-                             ||
-	                         DEFAULT_ADAPTIV_SIZE_PAGES;
+	constructor(size = PerfectPixel.DEFAULT.SIZE, options = {}) {
+		this.size = size;
+		this.pageName = options.pageName  || PerfectPixel.DEFAULT.PAGE_NAME;
+		this.rootUrlImg = options.rootUrlImg || PerfectPixel.DEFAULT.ROOT_URL_IMAGE;
+		this.extensionImage = options.extensionImage || PerfectPixel.DEFAULT.EXTENSION_IMAGE;
+		this.img = document.getElementsByClassName(PerfectPixel.DEFAULT.CLASS_IMG)[0];
 
-	const baseStyleImag = `
-		position: absolute;
-		z-index: 100000;
-		pointer-events: none;
-	`;
-
-	const extension = options.extenstion
-	                  ||
-	                  DEFAULT_EXTENSION_IMAGE;
-	const pageName = options.pageName || 'index';
-
-	let userStyle = {};
-	if (options.userStyle && options.userStyle[pageName]) {
-		if (options.userStyle[pageName].mobile)
-			userStyle.mobile = options.userStyle[pageName].mobile;
-		else userStyle.mobile = DEFAULT_EXTENSION_IMAGE;
-
-		if (options.userStyle[pageName].tablet)
-			userStyle.tablet = options.userStyle[pageName].tablet;
-		else userStyle.tablet = DEFAULT_EXTENSION_IMAGE;
-
-		if (options.userStyle[pageName].desktop)
-			userStyle.desktop = options.userStyle[pageName].desktop;
-		else userStyle.desktop = DEFAULT_EXTENSION_IMAGE;
-	} else userStyle = {
-		mobile: DEFAULT_USER_STYLE,
-		tablet: DEFAULT_USER_STYLE,
-		desktop: DEFAULT_USER_STYLE,
-	};
-
-	const id = generateId();
-	const stylesForAdaptiv = `
-		.perfect-pixel-img-${id} {
-			${baseStyleImag}
-		}
-		@media (max-width: ${adaptivSizePages.mobile}) {
-			.perfect-pixel-img-${id} {
-				content:url('${rootPathImg}/${pageName}.mobile.${extension}');
-				${getStyleUser(userStyle.mobile)}
-			}
-		}
-		@media (min-width: ${adaptivSizePages.mobile}) and (max-width: ${adaptivSizePages.tablet}) {
-			.perfect-pixel-img-${id} {
-				content:url('${rootPathImg}/${pageName}.tablet.${extension}');
-				${getStyleUser(userStyle.tablet)}
-			}
-		}
-		@media (min-width: ${adaptivSizePages.tablet}) {
-			.perfect-pixel-img-${id} {
-				content:url('${rootPathImg}/${pageName}.desktop.${extension}');
-				${getStyleUser(userStyle.desktop)}
-			}
-		}
-	`;
-
-	const keepRelativBody = `<script>
-	{
-	  	const adaptivSizePages = {
-			mobile: '${parseInt(adaptivSizePages.mobile)}',
-			tablet: '${parseInt(adaptivSizePages.tablet)}',
-		};
-		const leftAll = {
-			mobile: '${userStyle.mobile.left}',
-			tablet: '${userStyle.tablet.left}',
-			desktop: '${userStyle.desktop.left}',
-		};
-	  	const img = document.getElementsByClassName('${`perfect-pixel-img-${id}`}')[0];
-		window.addEventListener('resize', function (e) {
-		  	const left = document.body.getBoundingClientRect().left;
-		  	const displayWidth = document.documentElement.clientWidth;
-		  	const shift = (str) => {
-		  	  console.log(!str);
-		  		if (!str || str === 'undefined') return left + 'px';
-		  		let tmp = parseInt(str) || 0;
-		  		let tmp1 = str.slice(tmp.toString().length) || 'px';
-		  		console.log('tmp = ', tmp);
-		  		console.log('tmp1 = ', tmp1);
-		  		return (left + tmp).toString() + tmp1;
-		  	};
-		  	if (displayWidth < adaptivSizePages.mobile)
-		  		img.style.left = shift(leftAll.mobile);
-		  	else if (adaptivSizePages.mobile < displayWidth && displayWidth < adaptivSizePages.tablet)
-		  		img.style.left = shift(leftAll.tablet);
-		  	else if (adaptivSizePages.tablet < displayWidth)
-		  		img.style.left = shift(leftAll.desktop);
-
-
-		});
+		window.addEventListener('load', this.adaptiveImg);
+		window.addEventListener('resize', this.adaptiveImg);
 	}
-	</script>`;
-	return `
-		<div class="perfect-pixel-wrapper-${id}">
-			<img class="perfect-pixel-img-${id}">
-			<style>${stylesForAdaptiv}</style>
-			${keepRelativBody}
-		</div>
-	`;
-}
+	adaptiveImg = () => {
+		this.opacity = undefined;
+		this.top = undefined;
+		this.left = undefined;
+		this.img.src = this.currentImg;
+	};
+	set left(x) {
+		if (x !== undefined)
+			this.currentAdaptive.style.left = x;
+		this.img.style.left = this.imgStyle.left;
+	}
 
-export default perfectPixel;
+	set top(x) {
+		if (x !== undefined)
+			this.currentAdaptive.style.top = x;
+		this.img.style.top = this.imgStyle.top;
+	}
+
+	set opacity(x) {
+		if (x !== undefined)
+			this.currentAdaptive.style.opacity = x;
+		this.img.style.opacity = this.imgStyle.opacity;
+	}
+
+	get imgStyle() {
+		const currAdapt = this.currentAdaptive;
+		const { top, left, opacity } = currAdapt.style;
+
+		let bodyLeft = 0;
+		if (currAdapt.positionRelative === 'body')
+			bodyLeft = document.body.getBoundingClientRect().left;
+
+		return {
+			left: `${left + bodyLeft}px`,
+			top: `${top}px`,
+			opacity,
+		}
+	}
+
+	get currentAdaptive() {
+		for (let i = 0; i < this.size.length; i++) {
+			const { type, one, two } = this.size[i];
+			switch (type) {
+				case PerfectPixel.TYPE_ADAPTIVE.LEFT: {
+					if (window.matchMedia(`(min-width: ${one}px)`).matches)
+						return this.size[i];
+					else
+						break;
+				}
+				case PerfectPixel.TYPE_ADAPTIVE.RIGHT: {
+					if (window.matchMedia(`(max-width: ${one}px)`).matches)
+						return this.size[i];
+					else
+						break;
+				}
+				case PerfectPixel.TYPE_ADAPTIVE.LEFT_RIGHT: {
+					if (window.matchMedia(`(min-width: ${one}px)`).matches && window.matchMedia(`(max-width: ${two}px)`).matches)
+						return this.size[i];
+					else
+						break;
+				}
+				default:
+					console.error(`type no ${type}`);
+			}
+		}
+		return false;
+	}
+
+	get currentImg () {
+		return `${this.rootUrlImg}/${this.pageName}.${this.currentAdaptive.name}.${this.extensionImage}`;
+	}
+}
+var size, options;
+
+const perfectPixel =  new PerfectPixel(size, options);
