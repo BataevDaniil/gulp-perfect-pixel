@@ -6,7 +6,7 @@ let config = {
 	      : 'development',
 	watch: (mode !== 'production'),
 	// devtool: 'source-map',
-	devtool: 'eval',
+	devtool: (mode === 'production') ? 'none' : 'eval',
 	watchOptions: {
 		aggregateTimeout: 100,
 		poll: 100

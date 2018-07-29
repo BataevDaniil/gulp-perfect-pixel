@@ -20,7 +20,7 @@ npm install --save-dev gulp-perfect-pixel
 Add in you gulpfile
 ```js
 const gulp = require('gulp');
-const perfectPixel = require('gulp-perfect-pixel');
+const perfectPixel = require('gulp-perfect-pixel').default;
  
 gulp.task('html-build', function () {
   return gulp.src('./html/*.html')
