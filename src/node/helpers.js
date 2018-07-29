@@ -11,5 +11,3 @@ export function insert(beginString, index, string) {
 	else
 		return string + beginString;
 }
-
-

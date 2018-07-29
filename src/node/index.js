@@ -4,10 +4,12 @@ import { PluginError} from 'gulp-util';
 import { log } from 'gulp-util';
 import { insert } from './helpers';
 import wrapper from './wrapper';
+import parserNameImg from './parserNameImg';
 import fs from 'fs';
 
 function wrapperGulpperfectPixel(size, options) {
 	return through(function gulpPerfectPixel(file, enc, callBack) {
+		const DEFAULT_ROOT_PATH_IMG = './perfectPixel/img';
 
 		if (file.isStream()) {
 			return callBack(new PluginError('gulp-perfect-pixel', 'Streaming not supported'));
@@ -19,11 +21,21 @@ function wrapperGulpperfectPixel(size, options) {
 				const opt = Object.assign(options || {}, {
 					pageName,
 				});
-				// TODO: typing parse name img
-				fs.readdirSync('./mock/img');
-				///////////////////////////
+				if (!opt.rootPathImage)
+					opt.rootPathImage = DEFAULT_ROOT_PATH_IMG;
 
-				const code = wrapper(size && size[pageName], opt);
+				const namesImages = fs.readdirSync(opt.rootPathImage);
+				const sizeFromNameImg = parserNameImg(namesImages);
+
+				if (size && size[pageName]) {
+					for (let sz in size[pageName]) {
+						if (sizeFromNameImg[pageName] && sizeFromNameImg[pageName][sz]) {
+							Object.assign(sizeFromNameImg[pageName][sz], size[pageName][sz])
+						}
+					}
+				}
+
+				const code = wrapper(sizeFromNameImg[pageName], opt);
 				let contents = String(file.contents);
 				const index = contents.indexOf('</body>');
 				contents = insert(contents, index, code);

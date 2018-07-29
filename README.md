@@ -24,14 +24,26 @@ const perfectPixel = require('gulp-perfect-pixel');
  
 gulp.task('html-build', function () {
   return gulp.src('./html/*.html')
-    .pipe(perfectPixel())
+    .pipe(perfectPixel({}, {
+        rootPathImage: './perfectPixel',
+    }))
     .pipe(gulp.dest('build'));
 });
 ```
 and add image name which comprises 
-```name_html_page.desktop_or_tablet_or_mobile.jpg```. By default
-all image searcher by url ```/perfectPixel/name_html_page.desktop_or_tablet_or_mobile.jpg```. If you use 
-[browsersync](https://browsersync.io/) then just add in him config
+```name_html_page.size.extension_image```. By default
+all image searcher by url ```/perfectPixel/size.extension_image``` when ```size``` this 
+1. ```|number_px``` image will show on display with resolution more ```number_px```
+2. ```number_px|``` image will show on display with resolution less ```number_px```
+3. ```|number_one_px-number_two_px|``` image will show on display with resolution between ```number_one_px```
+and ```number_two_px```
+
+Example:
+1. ```index.|1200.jpg```
+2. ```index.720|.jpg```
+2. ```index.|720-1200|.jpg```
+
+If you use [browsersync](https://browsersync.io/) then just add in him config
 ```
 browsersyncConfig = {
   server: {

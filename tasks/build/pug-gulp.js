@@ -13,7 +13,6 @@ let perfectPixel = () => through((file, enc, cb) => cb(null, file));
 
 gulp.task('pug-gulp-build', function () {
 	resetRequireGulpPerfectPixel();
-	console.log(perfectPixel);
 	return gulp.src(path.src.pugGulp)
 		.pipe(plumber({
 			errorHandler: notify.onError(function (err) {
@@ -24,7 +23,40 @@ gulp.task('pug-gulp-build', function () {
 			})
 		}))
 		.pipe(pug({pretty: true}))
-		.pipe(perfectPixel())
+		.pipe(perfectPixel({
+			index: {
+				'|720-1200|':{
+					style: {
+						top: 100,
+						opacity: 0.3,
+					}
+				},
+				'720|':{
+					style: {
+						top: 100,
+						left: 80,
+						opacity: 0.3,
+					}
+				}
+			},
+			from: {
+				'600|':{
+					style: {
+						top: 100,
+						opacity: 0.3,
+					}
+				},
+				'|600-1000|':{
+					style: {
+						top: 100,
+						left: 80,
+						opacity: 0.1,
+					}
+				}
+			},
+		},{
+			rootPathImage: './mock/img'
+		}))
 		.pipe(gulp.dest(path.build.html))
 		.pipe(reload({stream: true}));
 });
@@ -33,6 +65,7 @@ function resetRequireGulpPerfectPixel() {
 	['../../build/index',
 	 '../../build/wrapper',
 	 '../../build/helpers',
+	 '../../build/parserNameImg',
 	].forEach(path => delCashRequire(path));
 
 	perfectPixel = require('../../build/index').default;

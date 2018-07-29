@@ -1,7 +1,7 @@
 {
   "name": "gulp-perfect-pixel",
   "version": "0.1.0",
-  "main": "index.js",
+  "main": "build/index.js",
   "keywords": [
     "gulp",
     "perfect-pixel",
