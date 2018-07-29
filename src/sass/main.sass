@@ -19,7 +19,8 @@
 	height: 30px
 	border-bottom: 5px solid black
 
-.perfect-pixel__control-panel__button-lock-drag-image
+.perfect-pixel__control-panel__button-lock-drag-image,
+.perfect-pixel__control-panel__button-hide-image
 	display: inline-block
 	border: 1px solid purple
 	padding: 5px 10px
@@ -27,3 +28,27 @@
 	cursor: pointer
 	&:hover
 		background: #1f99a0
+
+.perfect-pixel__control-panel__title__close
+	border-radius: 50%
+	width: 30px
+	height: 30px
+	background: black
+	float: right
+	position: relative
+	&:hover
+		background: red
+	&:after,
+	&:before
+		content: ''
+		position: absolute
+		background: white
+		width: 20px
+		height: 2px
+		top: 50%
+		left: 50%
+	&:after
+		transform: translateX(-50%) rotate(45deg)
+	&:before
+		transform: translateX(-50%) rotate(-45deg)
+

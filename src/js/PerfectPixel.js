@@ -60,6 +60,8 @@ class PerfectPixel {
 		}
 	};
 
+	isShow = true;
+
 	constructor(size, options = {}) {
 		this.initSize(size);
 		this.pageName = options.pageName  || PerfectPixel.DEFAULT.PAGE_NAME;
@@ -96,6 +98,22 @@ class PerfectPixel {
 				}
 			}
 		}
+	}
+
+	toggleShow() {
+		if (this.isShow)
+			return this.hide();
+		else
+			return this.show();
+	}
+	show() {
+		this.isShow = true;
+		this.adaptiveImg();
+		return this.isShow;
+	}
+	hide() {
+		this.img.src = '';
+		return this.isShow = false;
 	}
 
 	adaptiveImg = () => {
@@ -152,6 +170,9 @@ class PerfectPixel {
 	}
 
 	get currentAdaptive() {
+		if (!this.isShow)
+			return false;
+
 		for (let name in this.size) {
 			const { type, one, two } = this.size[name];
 			switch (type) {
