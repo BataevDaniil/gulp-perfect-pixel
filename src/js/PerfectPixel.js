@@ -61,6 +61,7 @@ class PerfectPixel {
 	};
 
 	isShow = true;
+	eventChangeStyle = [];
 
 	constructor(size, options = {}) {
 		this.initSize(size);
@@ -70,7 +71,15 @@ class PerfectPixel {
 
 		window.addEventListener('load', this.adaptiveImg);
 		window.addEventListener('resize', this.adaptiveImg);
+		this.adaptiveImg();
 	}
+	addEventChangeStyle(callBack) {
+		this.eventChangeStyle.push(callBack);
+	}
+	eventDispatch(event) {
+		this.eventChangeStyle.forEach(cb => cb(event))
+	}
+
 	initSize(size) {
 		if (size === null || size === undefined)
 			this.size = PerfectPixel.DEFAULT.SIZES;
@@ -119,53 +128,91 @@ class PerfectPixel {
 	adaptiveImg = () => {
 		this.opacity = undefined;
 		this.top = undefined;
-		this.left = undefined;
+		this.leftRelative = undefined;
 		this.img.src = this.currentImg;
 	};
-	set leftNative(x) {
-		if (this.currentAdaptive !== false) {
-			this.img.style.left = this.currentAdaptive.style.left = x;
-		}
-	}
 
-	set left(x) {
-		if (this.currentAdaptive !== false) {
-			if (x !== undefined)
-				this.currentAdaptive.style.left = x;
-			this.img.style.left = this.imgStyle.left;
-		}
-	}
-
-	set top(x) {
-		if (this.currentAdaptive !== false) {
-			if (x !== undefined)
-				this.currentAdaptive.style.top = x;
-			this.img.style.top = this.imgStyle.top;
-		}
-	}
-
-	set opacity(x) {
-		if (this.currentAdaptive !== false) {
-			if (x !== undefined)
-				this.currentAdaptive.style.opacity = x;
-			this.img.style.opacity = this.imgStyle.opacity;
-		}
-	}
-
-	get imgStyle() {
+	get bodyLeft() {
 		const currAdapt = this.currentAdaptive;
-		if (currAdapt === false)
-			return {left: 0, top: 0, opacity: 0.8};
-		const { top, left, opacity } = currAdapt.style;
-
 		let bodyLeft = 0;
 		if (currAdapt.positionRelative === 'body')
 			bodyLeft = document.body.getBoundingClientRect().left;
+		return bodyLeft;
+	}
 
-		return {
-			left: `${left + bodyLeft}px`,
-			top: `${top}px`,
-			opacity,
+	get left() {
+		const currAdapt = this.currentAdaptive;
+		if (currAdapt !== false)
+			return currAdapt.style.left + this.bodyLeft;
+		else
+			return 0;
+	}
+	set left(x) {
+		const currAdapt = this.currentAdaptive;
+		if (currAdapt !== false) {
+			if (x !== undefined) {
+				currAdapt.style.left = x - this.bodyLeft;
+				this.img.style.left = `${x}px`;
+			}
+			else
+				this.img.style.left = `${currAdapt.style.left + this.bodyLeft}px`;
+			this.eventDispatch();
+
+		}
+	}
+
+	get leftRelative() {
+		const currAdapt = this.currentAdaptive;
+		if (currAdapt !== false)
+			return currAdapt.style.left;
+		else
+			return 0;
+	}
+
+	set leftRelative(x) {
+		const currAdapt = this.currentAdaptive;
+		if (currAdapt !== false) {
+			if (x !== undefined)
+				currAdapt.style.left = x;
+			this.img.style.left = `${currAdapt.style.left + this.bodyLeft}px`;
+			this.eventDispatch();
+		}
+	}
+
+	get top() {
+		const currAdapt = this.currentAdaptive;
+		if (currAdapt !== false)
+			return currAdapt.style.top;
+		else
+			return 0;
+	}
+
+	set top(x) {
+		const currAdapt = this.currentAdaptive;
+		if (currAdapt !== false) {
+			if (x !== undefined)
+				currAdapt.style.top = x;
+			this.img.style.top = `${currAdapt.style.top}px`;
+			this.eventDispatch();
+		}
+	}
+
+	get opacity() {
+		const currAdapt = this.currentAdaptive;
+		if (currAdapt !== false)
+			return currAdapt.style.opacity;
+		else
+			return 0;
+	}
+
+	set opacity(x) {
+		const currAdapt = this.currentAdaptive;
+		if (currAdapt !== false) {
+			if (x !== undefined)
+				currAdapt.style.opacity = x;
+			this.eventDispatch();
+			this.img.style.opacity = currAdapt.style.opacity;
+
 		}
 	}
 
