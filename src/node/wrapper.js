@@ -2,7 +2,7 @@ import fs from 'fs';
 
 function wrapper(size, options) {
 	const DEFAULT_NAME_CSS = 'main.css';
-	const DEFAULT_NAME_JS = 'perfectPixel.js';
+	const DEFAULT_NAME_JS = 'ControllerPerfectPixel.js';
 	const DEFAULT_NAME_HTML = 'main.html';
 
 	let css = String(fs.readFileSync(`${__dirname}/${DEFAULT_NAME_CSS}`));

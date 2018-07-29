@@ -3,7 +3,7 @@
     "pug": "src/pug/main.pug",
     "pugGulp": "mock/pug/development-gulp-perfect-pixel/**/*.pug",
     "pugPerfectPixel": "mock/pug/development-perfect-pixel/**/*.pug",
-    "js": "src/js/perfectPixel.js",
+    "js": "src/js/ControllerPerfectPixel.js",
     "node": "src/node/**/*.js",
     "sass": "mock/sass/main.{sass,scss,css}",
     "sassProduction": "src/sass/main.{sass,scss,css}"

@@ -104,6 +104,12 @@ class PerfectPixel {
 		this.left = undefined;
 		this.img.src = this.currentImg;
 	};
+	set leftNative(x) {
+		if (this.currentAdaptive !== false) {
+			this.img.style.left = this.currentAdaptive.style.left = x;
+		}
+	}
+
 	set left(x) {
 		if (this.currentAdaptive !== false) {
 			if (x !== undefined)
@@ -131,7 +137,7 @@ class PerfectPixel {
 	get imgStyle() {
 		const currAdapt = this.currentAdaptive;
 		if (currAdapt === false)
-			return {left: 0, right: 0, top: 0};
+			return {left: 0, top: 0, opacity: 0.8};
 		const { top, left, opacity } = currAdapt.style;
 
 		let bodyLeft = 0;
@@ -182,4 +188,4 @@ class PerfectPixel {
 	}
 }
 
-const perfectPixel =  new PerfectPixel(size, options);
+export default PerfectPixel;
