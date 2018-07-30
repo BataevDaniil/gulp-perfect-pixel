@@ -52,7 +52,6 @@ class ControllerPerfectPixel extends PerfectPixel {
 	initHotKey() {
 		this.keyBoard = new HandlerKeyBoard();
 		this.keyBoard.add('AltLeft+KeyP', this.handlerKeyBoardOpenCloseControllerPanel);
-		this.keyBoard.add('AltLeft+KeyQ', this.handlerCloseControllerPanel);
 		this.keyBoard.add('AltLeft+KeyL', this.handlerButtonLockDragImage);
 		this.keyBoard.add('AltLeft+KeyH', this.handlerButtonHideImage);
 

@@ -1,10 +1,9 @@
 # gulp-perfect-pixel
 
 This plugin analog [PerfectPixel](http://www.welldonecode.com/perfectpixel/) but is different
-1. Do not upload photos every time if you want to compare the 
-design layout and web layout.
-2. Photos adapt to the screen resolution (mobile, tablet, desktop)
-3. Begin position each image you cat setting
+
+1. Photos adapt to the screen resolution (mobile, tablet, desktop and more)
+2. Begin position each image you can setting
 
 # Install
 
@@ -53,3 +52,19 @@ browsersyncConfig = {
   }
 }
 ```
+
+# Hot key
+
+```AltLeft+KeyP``` open or close controller panel
+
+```AltLeft+KeyL``` lock or unLock drag and drop image
+
+```AltLeft+KeyH``` hide or unHide image
+
+```ArrowUp``` move image up
+
+```ArrowRight``` move image right
+
+```ArrowDown``` move image down
+
+```ArrowLeft``` move image left
