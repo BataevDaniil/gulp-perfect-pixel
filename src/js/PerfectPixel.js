@@ -61,6 +61,7 @@ class PerfectPixel {
 	};
 
 	isShow = true;
+	isLock = true;
 	eventChangeStyle = [];
 
 	constructor(size, options = {}) {
@@ -109,12 +110,33 @@ class PerfectPixel {
 		}
 	}
 
-	toggleShow() {
-		if (this.isShow)
-			return this.hide();
+	get positionRelative() {
+		const currAdapt = this.currentAdaptive;
+		if (currAdapt !== false)
+			return currAdapt.positionRelative;
 		else
-			return this.show();
+			return ''
 	}
+
+	set positionRelative(type) {
+		const currAdapt = this.currentAdaptive;
+		if (currAdapt !== false) {
+			currAdapt.positionRelative = type;
+			this.leftRelative = undefined;
+		}
+	}
+
+	toggleLock = () => (this.isLock) ? this.unLock() : this.lock();
+	lock() {
+		this.img.style['pointer-events'] = 'none';
+		return this.isLock = true;
+	}
+	unLock() {
+		this.img.style['pointer-events'] = 'initial';
+		return this.isLock = false;
+	}
+
+	toggleShow = () => (this.isShow) ? this.hide() : this.show();
 	show() {
 		this.isShow = true;
 		this.adaptiveImg();
