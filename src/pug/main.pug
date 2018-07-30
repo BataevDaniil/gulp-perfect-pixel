@@ -14,10 +14,14 @@ img.perfect-pixel__img
       input.perfect-pixel__control-panel__wrapper-position__y
     br
   .perfect-pixel__control-panel__wrapper-relative
-    span relative
+    span relative:
     br
     label body
       input(type='radio' name='relative' value='body').perfect-pixel__control-panel__wrapper-relative__body
     label document
       input(type='radio' name='relative' value='document').perfect-pixel__control-panel__wrapper-relative__document
+  .perfect-pixel__control-panel__wrapper-opacity
+    label opacity:
+      br
+      input(type='range' min='0' max='1' step='0.01').perfect-pixel__control-panel__wrapper-opacity_range
 

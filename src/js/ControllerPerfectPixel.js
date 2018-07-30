@@ -29,6 +29,9 @@ class ControllerPerfectPixel extends PerfectPixel {
 
 		this.fieldPositionY = $('.perfect-pixel__control-panel__wrapper-position__y');
 		this.fieldPositionY.addEventListener('input', this.handlerChangeInputPositionY);
+
+		this.rangeOpacity = $('.perfect-pixel__control-panel__wrapper-opacity_range');
+		this.rangeOpacity.addEventListener('change', this.handlerChangeOpacity);
 	}
 	initButtons() {
 		this.buttonLock = $('.perfect-pixel__control-panel__button-lock-drag-image');
@@ -45,11 +48,6 @@ class ControllerPerfectPixel extends PerfectPixel {
 
 		this.radioButtonDocument = $('.perfect-pixel__control-panel__wrapper-relative__document');
 		this.radioButtonDocument.addEventListener('change', this.handlerRelativePositionDocument);
-
-		if (this.positionRelative === 'body')
-			this.radioButtonBody.checked = true;
-		else
-			this.radioButtonDocument.checked = true;
 	}
 	initHotKey() {
 		this.keyBoard = new HandlerKeyBoard();
@@ -63,6 +61,8 @@ class ControllerPerfectPixel extends PerfectPixel {
 		this.keyBoard.add('ArrowDown', this.handlerKeyBoardArrowDown);
 		this.keyBoard.add('ArrowLeft', this.handlerKeyBoardArrowLeft);
 	}
+
+	handlerChangeOpacity = event => this.opacity = event.target.value;
 
 	handlerRelativePositionDocument = () => this.positionRelative = 'document';
 	handlerRelativePositionBody = () => this.positionRelative = 'body';
@@ -82,6 +82,13 @@ class ControllerPerfectPixel extends PerfectPixel {
 	handlerField = () => {
 		this.fieldPositionX.value = this.leftRelative;
 		this.fieldPositionY.value = this.top;
+
+		this.rangeOpacity.value = this.opacity;
+
+		if (this.positionRelative === 'body')
+			this.radioButtonBody.checked = true;
+		else
+			this.radioButtonDocument.checked = true;
 	};
 
 	handlerKeyBoardOpenCloseControllerPanel = () =>
