@@ -18,6 +18,11 @@ class ControllerPerfectPixel extends PerfectPixel {
 			this.dragAndDropImage = new DragAndDrop(img, undefined, x => this.left = x, x => this.top = x)
 			this.dragAndDropImage.disable();
 		}
+		{
+			this.miniControllerPanel = $('.perfect-pixel__mini-control-panel');
+			this.miniControllerPanel.addEventListener('dblclick', this.handlerCloseMiniControlPanel);
+			this.dragAndDropController = new DragAndDrop(this.miniControllerPanel)
+		}
 		this.initButtons();
 		this.initHotKey();
 		this.initField();
@@ -37,8 +42,14 @@ class ControllerPerfectPixel extends PerfectPixel {
 		this.buttonLock = $('.perfect-pixel__control-panel__button-lock-drag-image');
 		this.buttonLock.addEventListener('click', this.handlerButtonLockDragImage);
 
+		this.buttonLockMini = $('.perfect-pixel__mini-control-panel__button-lock-drag-image');
+		this.buttonLockMini.addEventListener('click', this.handlerButtonMiniLockDragImage);
+
 		this.buttonHide = $('.perfect-pixel__control-panel__button-hide-image');
 		this.buttonHide.addEventListener('click', this.handlerButtonHideImage);
+
+		this.buttonHideMini = $('.perfect-pixel__mini-control-panel__button-hide-image');
+		this.buttonHideMini.addEventListener('click', this.handlerButtonMiniHideImage);
 
 		this.buttonClose = $('.perfect-pixel__control-panel__title__close');
 		this.buttonClose.addEventListener('click', this.handlerCloseControllerPanel);
@@ -48,6 +59,9 @@ class ControllerPerfectPixel extends PerfectPixel {
 
 		this.radioButtonDocument = $('.perfect-pixel__control-panel__wrapper-relative__document');
 		this.radioButtonDocument.addEventListener('change', this.handlerRelativePositionDocument);
+
+		this.buttonOpenMiniControlPanel = $('.perfect-pixel__control-panel__title__button-open-mini-control-panel');
+		this.buttonOpenMiniControlPanel.addEventListener('click', this.handlerOpenMiniControlPanel)
 	}
 	initHotKey() {
 		this.keyBoard = new HandlerKeyBoard();
@@ -60,6 +74,21 @@ class ControllerPerfectPixel extends PerfectPixel {
 		this.keyBoard.add('ArrowDown', this.handlerKeyBoardArrowDown);
 		this.keyBoard.add('ArrowLeft', this.handlerKeyBoardArrowLeft);
 	}
+
+	handlerCloseMiniControlPanel = () => {
+		this.miniControllerPanel.style.display = 'none';
+		this.handlerOpenControllerPanel()
+	};
+
+	handlerOpenMiniControlPanel = () => {
+		const bounding = this.controllerPanel.getBoundingClientRect();
+		this.miniControllerPanel.style.left = bounding.left;
+		this.miniControllerPanel.style.top = bounding.top;
+		this.miniControllerPanel.style.display = 'initial';
+		this.handlerCloseControllerPanel();
+		this.initButtonMiniLock();
+		this.initButtonMiniHide();
+	};
 
 	handlerChangeOpacity = event => this.opacity = event.target.value;
 
@@ -94,6 +123,8 @@ class ControllerPerfectPixel extends PerfectPixel {
 		this.controllerPanel.style.display = (this.controllerPanel.style.display === 'none') ? '' : 'none';
 	handlerCloseControllerPanel = () =>
 		this.controllerPanel.style.display = 'none';
+	handlerOpenControllerPanel = () =>
+		this.controllerPanel.style.display = '';
 
 	handlerButtonLockDragImage = () => {
 		this.dragAndDropImage.toggleEnable();
@@ -101,8 +132,26 @@ class ControllerPerfectPixel extends PerfectPixel {
 		this.buttonLock.innerText =  this.isLock ? 'unLock' : 'lock';
 	};
 
+	initButtonMiniLock = () =>
+		this.buttonLockMini
+			.classList[ this.isLock ? 'remove' : 'add' ]('perfect-pixel__mini-control-panel__button-lock-drag-image_close');
+
+	handlerButtonMiniLockDragImage = () => {
+		this.handlerButtonLockDragImage();
+		this.initButtonMiniLock();
+	};
+
 	handlerButtonHideImage = () =>
-		this.buttonHide.innerText = this.toggleShow() ? 'hide' : 'unhide';
+		this.buttonHide.innerText = this.toggleShow() ? 'hide' : 'unHide';
+
+	initButtonMiniHide = () =>
+		this.buttonHideMini
+			.classList[ this.isShow ? 'remove' : 'add' ]('perfect-pixel__mini-control-panel__button-hide-image_open');
+
+	handlerButtonMiniHideImage = () => {
+		this.handlerButtonHideImage();
+		this.initButtonMiniHide();
+	}
 }
 
 const controllerPerfectPixel =  new ControllerPerfectPixel(size, options);

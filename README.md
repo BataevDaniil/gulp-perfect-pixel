@@ -55,6 +55,8 @@ browsersyncConfig = {
 
 # Hot key
 
+Double click on mini controller panel open big controller panel.
+
 ```AltLeft+KeyP``` open or close controller panel
 
 ```AltLeft+KeyL``` lock or unLock drag and drop image

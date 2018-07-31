@@ -1,18 +1,21 @@
 @import boxSizing
 
-.perfect-pixel__img
-	position: absolute
+.perfect-pixel__img,
+.perfect-pixel__control-panel,
+.perfect-pixel__mini-control-panel
 	z-index: 2147483646 !important
 
-.perfect-pixel__control-panel
+.perfect-pixel__img
 	position: absolute
+
+.perfect-pixel__control-panel
+	position: fixed
 	width: 300px
 	height: 400px
 	border: 5px solid black
 	right: 0
 	top: 0
 	background: white
-	z-index: 2147483647 !important
 .perfect-pixel__control-panel__title
 	width: 100%
 	height: 30px
@@ -55,3 +58,67 @@
 .perfect-pixel__control-panel__wrapper-opacity,
 .perfect-pixel__control-panel__wrapper-position
 	margin-top: 10px
+
+
+.perfect-pixel__mini-control-panel
+	position: fixed
+	display: none
+	padding: 8px 8px
+	background: #a86cc1
+	border-radius: 5px
+
+.perfect-pixel__mini-control-panel__button-hide-image
+	width: 30px
+	height: 16px
+	position: relative
+	cursor: pointer
+.perfect-pixel__mini-control-panel__button-hide-image_open
+	&:before
+		content: ''
+		height: 2px
+		width: 30px
+		background: orange
+		position: absolute
+		left: 50%
+		top: 50%
+		transform: translateX(-50%) rotate(35deg)
+
+.perfect-pixel__mini-control-panel__button-lock-drag-image
+	width: 20px
+	height: 24px
+	margin: 0 auto
+	margin-top: 10px
+	cursor: pointer
+	position: relative
+	svg
+		width: 20px
+		height: 24px
+	svg + svg
+		display: none
+.perfect-pixel__mini-control-panel__button-lock-drag-image_close
+	& > svg
+		display: none
+	svg + svg
+		position: absolute
+		left: -2px
+		top: -3px
+		display: initial
+		width: 32px
+		height: 30px
+
+.perfect-pixel__control-panel__title__button-open-mini-control-panel
+	background: black
+	height: 100%
+	width: 30px
+	border-radius: 50%
+	position: relative
+	float: left
+	&:before
+		content: ''
+		position: absolute
+		background: white
+		width: 20px
+		height: 4px
+		top: 50%
+		left: 50%
+		transform: translateY(-50%) translateX(-50%)

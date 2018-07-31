@@ -6,8 +6,6 @@ const mode = require('./tasks/mode');
 const requireDir = require('require-dir');
 requireDir('./tasks', { recurse: true });
 
-console.log(mode);
-
 gulp.task('build',
 	gulp.series('clean',
 	gulp.parallel(
