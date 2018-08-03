@@ -9,7 +9,7 @@ class DragAndDrop {
 		if (setTop)
 			this.setTop = setTop;
 		this.target = target;
-		this.drager = (drager) ? drager : target;
+		this.drager = drager || target;
 
 		this.target.addEventListener('mousedown', this.handlerPress);
 		window.addEventListener('mouseup', this.handlerRelease);
@@ -23,14 +23,14 @@ class DragAndDrop {
 			return;
 		this.isPress = true;
 		this.addCursor();
-		const { left, top } = this.target.getBoundingClientRect();
+		let { left, top } = this.drager.getBoundingClientRect();
 		this.grab = {
 			left: event.pageX - left,
-			top: event.pageY - top,
+			top: event.clientY - top,
 		};
 	};
 
-	handlerRelease = event => {
+	handlerRelease = () => {
 		this.isPress = false;
 		this.removeCursor();
 	};
@@ -39,29 +39,28 @@ class DragAndDrop {
 		event.preventDefault();
 		if (!this.isPress)
 			return;
-		this.left = event.pageX - this.grab.left;
-		this.top = event.pageY - this.grab.top;
+		const position = window.getComputedStyle(this.drager).position;
+		let x = 0, y = 0;
+		if (position === 'absolute') {
+			x = event.pageX;
+			y = event.pageY;
+		} else if (position === 'fixed') {
+			x = event.clientX;
+			y = event.clientY;
+		}
+		else
+			console.warn('DragAndDrop: you not set drager element in style position absolute or fixed');
+
+		this.left = x - this.grab.left;
+		this.top = y - this.grab.top;
 	};
 
-	addCursor() {
-		this.target.style.cursor = 'move';
-	}
+	addCursor = () => this.target.style.cursor = 'move';
+	removeCursor = () => this.target.style.cursor = '';
 
-	removeCursor() {
-		this.target.style.cursor = '';
-	}
-
-	toggleEnable() {
-		return this.isEnable = !this.isEnable;
-	}
-
-	enable() {
-		return this.isEnable = true;
-	}
-
-	disable() {
-		return this.isEnable = false;
-	}
+	toggleEnable = () => this.isEnable = !this.isEnable;
+	enable = () => this.isEnable = true;
+	disable = () => this.isEnable = false;
 
 	set left(x) {
 		if (this.setLeft)
