@@ -75,7 +75,10 @@ class ControllerPerfectPixel extends PerfectPixel {
 		this.keyBoard.add('ArrowLeft', this.handlerKeyBoardArrowLeft);
 	}
 
-	handlerCloseMiniControlPanel = () => {
+	handlerCloseMiniControlPanel = event => {
+		if (event.target !== event.currentTarget)
+			return;
+
 		this.miniControllerPanel.style.display = 'none';
 		this.handlerOpenControllerPanel()
 	};
