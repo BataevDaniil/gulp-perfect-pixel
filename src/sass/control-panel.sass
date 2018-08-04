@@ -5,7 +5,7 @@
 	padding: $main-padding
 	right: 0
 	top: 0
-	background: $main-background
+	background: $main-background-color
 
 .perfect-pixel__control-panel__title
 	height: 30px
@@ -19,21 +19,21 @@
 		height: 3px
 		left: 0
 		right: 0
-		background: $two-main
+		background: $main-color
 		bottom: -3px
 
 .perfect-pixel__control-panel__button-lock-drag-image,
 .perfect-pixel__control-panel__button-hide-image
 	display: inline-block
 	padding: 5px 10px
-	background: $two-main
+	background: $main-color
 	color: #bdc5cc
 	cursor: pointer
 	border-radius: 3px
 	width: 67px
 	text-align: center
 	&:hover
-		background: #1f99a0
+		background: $hover-color
 
 $size-button-title: 18px
 .perfect-pixel__control-panel__title__close,
@@ -102,14 +102,14 @@ $size-button-title: 18px
 		margin-left: 10px
 	input
 		border-radius: 3px
-		border: 2px solid $two-main
+		border: 2px solid $main-color
 		padding: 2px 5px
 		outline: 0
 		width: 100px
 		&:hover
-			border-color: #1f99a0
+			border-color: $hover-color
 		&:focus
-			border-color: #1f99a0
+			border-color: $hover-color
 
 .perfect-pixel__control-panel__wrapper-relative
 	input
@@ -128,7 +128,7 @@ $size-button-title: 18px
 		border-radius: 50%
 		background: aliceblue
 		&:hover
-			background: #1f99a0
+			background: $hover-color
 	input:checked + .perfect-pixel__control-panel__wrapper-relative__checkbox
 		&:before
 			content: ''
@@ -139,5 +139,20 @@ $size-button-title: 18px
 			left: 50%
 			top: 50%
 			transform: translateX(-50%) translateY(-50%)
-			background: $two-main
+			background: $main-color
 			border-radius: 50%
+
+.perfect-pixel__control-panel__wrapper-opacity
+	span
+		display: block
+		margin-bottom: 3px
+
+.perfect-pixel__control-panel__wrapper-opacity_range
+	width: 200px
+	height: 20px
+	border: 2px solid $main-color
+	border-radius: 5px
+.perfect-pixel__control-panel__wrapper-opacity_grab
+	width: 10%
+	height: 100%
+	background: $main-color

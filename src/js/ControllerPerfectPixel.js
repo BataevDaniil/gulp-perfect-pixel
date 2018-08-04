@@ -1,6 +1,7 @@
 import PerfectPixel from './PerfectPixel';
 import DragAndDrop from './DragAndDrop';
 import HandlerKeyBoard from './HandlerKeyBoard';
+import Road from './Road';
 import { $ } from './helpers';
 
 class ControllerPerfectPixel extends PerfectPixel {
@@ -35,8 +36,8 @@ class ControllerPerfectPixel extends PerfectPixel {
 		this.fieldPositionY = $('.perfect-pixel__control-panel__wrapper-position__y');
 		this.fieldPositionY.addEventListener('input', this.handlerChangeInputPositionY);
 
-		this.rangeOpacity = $('.perfect-pixel__control-panel__wrapper-opacity_range');
-		this.rangeOpacity.addEventListener('change', this.handlerChangeOpacity);
+		this.rangeOpacity = new Road($('.perfect-pixel__control-panel__wrapper-opacity_range'), $('.perfect-pixel__control-panel__wrapper-opacity_grab'), {min: 0, max: 1});
+		this.rangeOpacity.addEventListener(this.handlerChangeOpacity);
 	}
 	initButtons() {
 		this.buttonLock = $('.perfect-pixel__control-panel__button-lock-drag-image');
@@ -93,7 +94,7 @@ class ControllerPerfectPixel extends PerfectPixel {
 		this.initButtonMiniHide();
 	};
 
-	handlerChangeOpacity = event => this.opacity = event.target.value;
+	handlerChangeOpacity = value => this.opacity = value;
 
 	handlerRelativePositionDocument = () => this.positionRelative = 'document';
 	handlerRelativePositionBody = () => this.positionRelative = 'body';
