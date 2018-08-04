@@ -1,0 +1,143 @@
+.perfect-pixel__control-panel
+	position: fixed
+	width: 300px
+	border-radius: 5px
+	padding: $main-padding
+	right: 0
+	top: 0
+	background: $main-background
+
+.perfect-pixel__control-panel__title
+	height: 30px
+	width: 300px
+	position: relative
+	top: -$main-padding
+	left: -$main-padding
+	&:before
+		content: ''
+		position: absolute
+		height: 3px
+		left: 0
+		right: 0
+		background: $two-main
+		bottom: -3px
+
+.perfect-pixel__control-panel__button-lock-drag-image,
+.perfect-pixel__control-panel__button-hide-image
+	display: inline-block
+	padding: 5px 10px
+	background: $two-main
+	color: #bdc5cc
+	cursor: pointer
+	border-radius: 3px
+	width: 67px
+	text-align: center
+	&:hover
+		background: #1f99a0
+
+$size-button-title: 18px
+.perfect-pixel__control-panel__title__close,
+.perfect-pixel__control-panel__title__button-open-mini-control-panel
+	display: inline-block
+	border-radius: 50%
+	width: $size-button-title
+	height: $size-button-title
+	position: relative
+	top: 50%
+	left: $main-padding
+	transform: translateY(-50%)
+	border-width: 1px
+	border-style: solid
+
+.perfect-pixel__control-panel__title__close
+	background: #f25258
+	border-color: #d12d3f
+	&:hover
+		background: #d12d3f
+	&:after,
+	&:before
+		content: ''
+		position: absolute
+		background: #a01924
+		border-radius: 1px
+		width: 14px
+		height: 2px
+		top: 46%
+		left: 50%
+	&:after
+		transform: translateX(-50%) rotate(45deg)
+	&:before
+		transform: translateX(-50%) rotate(-45deg)
+
+.perfect-pixel__control-panel__title__button-open-mini-control-panel
+	background: #f9c538
+	border-color: #cf9c1b
+	margin-left: 3px
+	&:hover
+		border-color: #f9c538
+	&:before
+		content: ''
+		position: absolute
+		background: #995912
+		border-radius: 2px
+		width: 13px
+		height: 2px
+		top: 50%
+		left: 50%
+		transform: translateY(-50%) translateX(-50%)
+
+.perfect-pixel__control-panel__wrapper-relative,
+.perfect-pixel__control-panel__wrapper-opacity,
+.perfect-pixel__control-panel__wrapper-position
+	margin-top: 10px
+
+.perfect-pixel__control-panel__wrapper-position
+	span
+		display: block
+		margin-bottom: 3px
+	label:nth-child(2)
+		margin-bottom: 10px
+	label
+		display: block
+		margin-left: 10px
+	input
+		border-radius: 3px
+		border: 2px solid $two-main
+		padding: 2px 5px
+		outline: 0
+		width: 100px
+		&:hover
+			border-color: #1f99a0
+		&:focus
+			border-color: #1f99a0
+
+.perfect-pixel__control-panel__wrapper-relative
+	input
+		display: none
+	span
+		display: block
+		margin-bottom: 3px
+	label:nth-child(2)
+		display: inline-block
+		margin-left: 10px
+	.perfect-pixel__control-panel__wrapper-relative__checkbox
+		position: relative
+		display: inline-block
+		width: 10px
+		height: 10px
+		border-radius: 50%
+		background: aliceblue
+		&:hover
+			background: #1f99a0
+	input:checked + .perfect-pixel__control-panel__wrapper-relative__checkbox
+		&:before
+			content: ''
+			right: 0
+			position: absolute
+			width: 5px
+			height: 5px
+			left: 50%
+			top: 50%
+			transform: translateX(-50%) translateY(-50%)
+			background: $two-main
+			border-radius: 50%

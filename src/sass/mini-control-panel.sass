@@ -1,0 +1,45 @@
+.perfect-pixel__mini-control-panel
+	position: fixed
+	display: none
+	padding: 8px 8px
+	background: $main-background
+	border-radius: 5px
+
+.perfect-pixel__mini-control-panel__button-hide-image
+	width: 30px
+	height: 16px
+	position: relative
+	cursor: pointer
+.perfect-pixel__mini-control-panel__button-hide-image_open
+	&:before
+		content: ''
+		height: 2px
+		width: 30px
+		background: orange
+		position: absolute
+		left: 50%
+		top: 50%
+		transform: translateX(-50%) rotate(35deg)
+
+.perfect-pixel__mini-control-panel__button-lock-drag-image
+	width: 20px
+	height: 24px
+	margin: 0 auto
+	margin-top: 10px
+	cursor: pointer
+	position: relative
+	svg
+		width: 20px
+		height: 24px
+	svg + svg
+		display: none
+.perfect-pixel__mini-control-panel__button-lock-drag-image_close
+	& > svg
+		display: none
+	svg + svg
+		position: absolute
+		left: -2px
+		top: -3px
+		display: initial
+		width: 32px
+		height: 30px

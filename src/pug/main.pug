@@ -1,28 +1,26 @@
 img.perfect-pixel__img
 .perfect-pixel__control-panel
   .perfect-pixel__control-panel__title
-    .perfect-pixel__control-panel__title__button-open-mini-control-panel
     .perfect-pixel__control-panel__title__close(title='HotKey: Alt+p')
+    .perfect-pixel__control-panel__title__button-open-mini-control-panel
   .perfect-pixel__control-panel__button-lock-drag-image(title='HotKey: Alt+l') unLock
   .perfect-pixel__control-panel__button-hide-image(title='HotKey: Alt+h') hide
   .perfect-pixel__control-panel__wrapper-position
-    span position:
-    br
+    span Position:
     label x:
       input.perfect-pixel__control-panel__wrapper-position__x
-    br
     label y:
       input.perfect-pixel__control-panel__wrapper-position__y
-    br
   .perfect-pixel__control-panel__wrapper-relative
-    span relative:
-    br
+    span Position relative:
     label body
       input(type='radio' name='relative' value='body').perfect-pixel__control-panel__wrapper-relative__body
+      .perfect-pixel__control-panel__wrapper-relative__checkbox
     label document
       input(type='radio' name='relative' value='document').perfect-pixel__control-panel__wrapper-relative__document
+      .perfect-pixel__control-panel__wrapper-relative__checkbox
   .perfect-pixel__control-panel__wrapper-opacity
-    label opacity:
+    label Opacity:
       br
       input(type='range' min='0' max='1' step='0.01').perfect-pixel__control-panel__wrapper-opacity_range
 
